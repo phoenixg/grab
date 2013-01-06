@@ -12,7 +12,7 @@ header("Content-type: text/html; charset=GB2312");
 【最近登录时间】    ：
 【性别】            ：
 【籍贯】            ：
-
+【...】
 
 */
 
@@ -22,14 +22,16 @@ define(BASE,   'http://www.ttgood.com/');
 
 set_time_limit(0);
 
-$html = file_get_html('http://www.ttgood.com/jy/t138288.htm');
+//$html = file_get_html('http://www.ttgood.com/jy/t138288.htm');
+$html = file_get_html('http://www.ttgood.com/jy/t150097.htm');
 
 $mentor_lastLoginTime = trim($html->find("table", 3)
                                   ->find("tr td", 2)
                                   ->find("table tr", 1)
                                   ->find("table", 0)
+                                  ->find("tr", 0)
+                                  ->find("td", 1)
                                   ->find("td", 3)
-                                  ->find("tr", 3)
                                   ->find("span", 0)->plaintext);
 
 $mentor_sex           = trim($html->find("table", 3)
@@ -64,7 +66,58 @@ $mentor_school        = trim($html->find("table", 3)
 
 
 
+$mentor_academic      = trim($html->find("table", 3)
+                                  ->find("tr td", 2)
+                                  ->find("table tr", 1)
+                                  ->find("table", 2)
+                                  ->find("tr", 5)
+                                  ->find("td", 1)->plaintext);
+
+
+$mentor_major         = trim($html->find("table", 3)
+                                  ->find("tr td", 2)
+                                  ->find("table tr", 1)
+                                  ->find("table", 2)
+                                  ->find("tr", 5)
+                                  ->find("td", 3)->plaintext);
+
+$mentor_identity      = trim($html->find("table", 3)
+                                  ->find("tr td", 2)
+                                  ->find("table tr", 1)
+                                  ->find("table", 2)
+                                  ->find("tr", 6)
+                                  ->find("td", 1)->plaintext);
+
+
+$mentor_teachable     = trim($html->find("table", 3)
+                                  ->find("tr td", 2)
+                                  ->find("table tr", 1)
+                                  ->find("table", 3) // 教员家教信息
+                                  ->find("tr", 1)
+                                  ->find("td", 1)->plaintext);
 
 
 
+$mentor_selfIntro     = trim($html->find("table", 3)
+                                  ->find("tr td", 2)
+                                  ->find("table tr", 1)
+                                  ->find("table", 3)
+                                  ->find("tr", 2)
+                                  ->find("td", 1)->plaintext);
 
+
+
+$mentor_certificate   = trim($html->find("table", 3)
+                                  ->find("tr td", 2)
+                                  ->find("table tr", 1)
+                                  ->find("table", 3)
+                                  ->find("tr", 3)
+                                  ->find("td", 1));
+
+
+/*
+$html->find("table", 3)
+                                  ->find("tr td", 2)
+                                  ->find("table tr", 1)
+                                  ->find("table", 2)
+*/
