@@ -26,7 +26,7 @@ set_time_limit(0);
 $html = file_get_html('http://www.ttgood.com/jy/t150097.htm');
 
 // 有教师资格的教员
-$html = file_get_html('http://www.ttgood.com/jy/t10072.htm');
+$html = file_get_html('http://www.ttgood.com/jy/t56369.htm');
 
 /* 
 最近登录时间，有时有 Fatal error: Call to a member function find() on a non-object 错误
