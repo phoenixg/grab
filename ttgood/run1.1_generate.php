@@ -9,59 +9,37 @@ define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
 
 require_once './PHPExcel_1_7_8/Classes/PHPExcel.php';
 
-
-// Create new PHPExcel object
-echo date('H:i:s') , " Create new PHPExcel object" , EOL;
+echo date('H:i:s') , " 创建新的 PHPExcel 对象" , EOL;
 $objPHPExcel = new PHPExcel();
 
-// Set document properties
-echo date('H:i:s') , " Set document properties" , EOL;
-$objPHPExcel->getProperties()->setCreator("Maarten Balliauw")
-							 ->setLastModifiedBy("Maarten Balliauw")
-							 ->setTitle("PHPExcel Test Document")
-							 ->setSubject("PHPExcel Test Document")
-							 ->setDescription("Test document for PHPExcel, generated using PHP classes.")
-							 ->setKeywords("office PHPExcel php")
-							 ->setCategory("Test result file");
+echo date('H:i:s') , " 设置文档属性" , EOL;
+$objPHPExcel->getProperties()->setCreator("黄峰")
+				 ->setLastModifiedBy("黄峰")
+				 ->setTitle("ttgood采集结果")
+				 ->setSubject("ttgood采集结果")
+				 ->setDescription("ttgood采集结果")
+				 ->setKeywords("ttgood 家教")
+				 ->setCategory("ttgood采集结果");
 
 
-// Add some data
-echo date('H:i:s') , " Add some data" , EOL;
+echo date('H:i:s') , " 添加一些数据" , EOL;
 $objPHPExcel->setActiveSheetIndex(0)
             ->setCellValue('A1', 'Hello')
             ->setCellValue('B2', 'world!')
             ->setCellValue('C1', 'Hello')
             ->setCellValue('D2', 'world!');
 
-// Miscellaneous glyphs, UTF-8
-$objPHPExcel->setActiveSheetIndex(0)
-            ->setCellValue('A4', 'Miscellaneous glyphs')
-            ->setCellValue('A5', 'éàèùâêîôûëïüÿäöüç');
+echo date('H:i:s') , " 重命名工作表" , EOL;
+$objPHPExcel->getActiveSheet()->setTitle('result');
 
-// Rename worksheet
-echo date('H:i:s') , " Rename worksheet" , EOL;
-$objPHPExcel->getActiveSheet()->setTitle('Simple');
-
-
-// Set active sheet index to the first sheet, so Excel opens this as the first sheet
 $objPHPExcel->setActiveSheetIndex(0);
 
-
-// Save Excel 2007 file
-echo date('H:i:s') , " Write to Excel2007 format" , EOL;
+echo date('H:i:s') , " 写入为 Excel2007 格式" , EOL;
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objWriter->save(str_replace('.php', '.xlsx', __FILE__));
-echo date('H:i:s') , " File written to " , str_replace('.php', '.xlsx', pathinfo(__FILE__, PATHINFO_BASENAME)) , EOL;
-// Save Excel5 file
-echo date('H:i:s') , " Write to Excel5 format" , EOL;
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
-$objWriter->save(str_replace('.php', '.xls', __FILE__));
-echo date('H:i:s') , " File written to " , str_replace('.php', '.xls', pathinfo(__FILE__, PATHINFO_BASENAME)) , EOL;
+echo date('H:i:s') , " 文件被写入 " , str_replace('.php', '.xlsx', pathinfo(__FILE__, PATHINFO_BASENAME)) , EOL;
 
 
-// Echo memory peak usage
-echo date('H:i:s') , " Peak memory usage: " , (memory_get_peak_usage(true) / 1024 / 1024) , " MB" , EOL;
+echo date('H:i:s') , " 内存使用状况: " , (memory_get_peak_usage(true) / 1024 / 1024) , " MB" , EOL;
 
-// Echo done
-echo date('H:i:s') , " Done writing files" , EOL;
-echo 'Files have been created in ' , getcwd() , EOL;
+echo '文件被存储在 ' , getcwd() , EOL;
