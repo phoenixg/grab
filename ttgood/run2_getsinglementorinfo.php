@@ -18,14 +18,14 @@ header("Content-type: text/html; charset=GB2312");
 
 require ('./simplehtmldom_1_5/simple_html_dom.php');
 
-define(BASE,   'http://www.ttgood.com/');
+define('BASE',   'http://www.ttgood.com/');
 
 set_time_limit(0);
 
-// 非教员
+// 无教师资格的教员
 $html = file_get_html('http://www.ttgood.com/jy/t150097.htm');
 
-// 教员
+// 有教师资格的教员
 $html = file_get_html('http://www.ttgood.com/jy/t10072.htm');
 
 /* 
@@ -132,12 +132,61 @@ $mentor_certificate   = trim($html->find("table", 3)
 
 echo $mentor_certificate . '<br />';
 
-/*
-$html->find("table", 3)
+
+
+
+$mentor_teachSchoolFlag = trim($html->find("table", 3)
                                   ->find("tr td", 2)
                                   ->find("table tr", 1)
-                                  ->find("table", 2)
-*/
+                                  ->find("table", 2) 
+                                  ->find("tr", 7)
+                                  ->find("td", 0)->plaintext);
+
+$mentor_teachSchool    = '';
+$mentor_teachSubject   = '';
+$mentor_teachAge          = '';
+$mentor_teachLevel       = '';
+
+if ($mentor_teachSchoolFlag == mb_convert_encoding ('执教学校：', 'GB2312' , 'UTF-8' )) {
+  
+  $mentor_teachSchool = trim($html->find("table", 3)
+                                  ->find("tr td", 2)
+                                  ->find("table tr", 1)
+                                  ->find("table", 2) 
+                                  ->find("tr", 7)
+                                  ->find("td", 1)->plaintext);
+  
+  echo $mentor_teachSchool . '<br />';
+
+  $mentor_teachSubject = trim($html->find("table", 3)
+                                  ->find("tr td", 2)
+                                  ->find("table tr", 1)
+                                  ->find("table", 2) 
+                                  ->find("tr", 7)
+                                  ->find("td", 3)->plaintext);
+
+  echo $mentor_teachSubject . '<br />';
+
+  $mentor_teachAge = trim($html->find("table", 3)
+                                  ->find("tr td", 2)
+                                  ->find("table tr", 1)
+                                  ->find("table", 2) 
+                                  ->find("tr", 8)
+                                  ->find("td", 1)->plaintext);
+
+  echo $mentor_teachAge . '<br />';
+
+  $mentor_teachLevel = trim($html->find("table", 3)
+                                  ->find("tr td", 2)
+                                  ->find("table tr", 1)
+                                  ->find("table", 2) 
+                                  ->find("tr", 8)
+                                  ->find("td", 3)->plaintext);
+
+  echo $mentor_teachLevel . '<br />';
+
+}
+
 
 
 
