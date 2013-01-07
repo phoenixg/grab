@@ -23,6 +23,11 @@ date_default_timezone_set('Asia/Shanghai');
 
 define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
 
+
+$lines = file('run1.0_getmentorlist_20130107PM1730.txt', FILE_IGNORE_NEW_LINES);
+echo '<pre>';print_r($lines);
+die;
+
 require_once './PHPExcel_1_7_8/Classes/PHPExcel.php';
 
 $objPHPExcel = new PHPExcel();
