@@ -11,6 +11,27 @@ jy_f1 - jy_f199 每页有15条教员记录
 
 */
 
+error_reporting(E_ALL);
+ini_set('display_errors', TRUE);
+ini_set('display_startup_errors', TRUE);
+date_default_timezone_set('Asia/Shanghai');
+
+define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
+
+require_once './PHPExcel_1_7_8/Classes/PHPExcel.php';
+
+$objPHPExcel = new PHPExcel();
+
+$objPHPExcel->getProperties()->setCreator("黄峰")
+                 ->setLastModifiedBy("黄峰")
+                 ->setTitle("ttgood采集结果")
+                 ->setSubject("ttgood采集结果")
+                 ->setDescription("ttgood采集结果")
+                 ->setKeywords("ttgood 家教")
+                 ->setCategory("ttgood采集结果");
+
+
+
 require ('./simplehtmldom_1_5/simple_html_dom.php');
 
 define('BASE',   'http://www.ttgood.com/');
@@ -18,7 +39,7 @@ define('BASE',   'http://www.ttgood.com/');
 set_time_limit(0);
 
 $mentorList  = array();
-for ($j=1; $j < 200; $j++) { 
+for ($j=1; $j < 3; $j++) {  //200
     $html = file_get_html(BASE . "jy_f{$j}/");
     
     for ($i=1; $i <= 15; $i++) { 
@@ -32,13 +53,41 @@ for ($j=1; $j < 200; $j++) {
                                                                             ->find(".orange_", 0)
                                                                             ->href);
         $mentor_link = BASE . trim(str_replace('../', '', $mentor_linkTmp));
-        $mentorList[] = array($mentor_lastLoginTime, $mentor_link);
+        //$mentorList[] = array($mentor_lastLoginTime, $mentor_link);
+
+        $objPHPExcel->setActiveSheetIndex(0)
+                                     ->setCellValue('A'.($i+1), $mentor_linkTmp);
     }
 }
 
 
+//echo '<pre>';print_r($mentorList);
 
-echo '<pre>';print_r($mentorList);
+
+/*
+
+    A                        B
+2 T138288           2011 11 11 11:11:11
+3 T138288           2011 11 11 11:11:11
+4 T138288           2011 11 11 11:11:11
+
+*/
+
+
+
+
+
+
+
+
+
+$objPHPExcel->getActiveSheet()->setTitle('result');
+
+$objPHPExcel->setActiveSheetIndex(0);
+
+
+$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+$objWriter->save(str_replace('.php', '.xlsx', __FILE__));
 
 
 die;
