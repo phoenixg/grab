@@ -39,7 +39,7 @@ define('BASE',   'http://www.ttgood.com/');
 set_time_limit(0);
 
 $mentorList  = array();
-for ($j=1; $j < 3; $j++) {  //200
+for ($j=1; $j < 200; $j++) { 
     $html = file_get_html(BASE . "jy_f{$j}/");
     
     for ($i=1; $i <= 15; $i++) { 
@@ -56,29 +56,13 @@ for ($j=1; $j < 3; $j++) {  //200
         //$mentorList[] = array($mentor_lastLoginTime, $mentor_link);
 
         $objPHPExcel->setActiveSheetIndex(0)
-                                     ->setCellValue('A'.($i+1), $mentor_linkTmp);
+                                     ->setCellValue('A'.(15*($j-1)+$i+1), $mentor_linkTmp)
+                                     ->setCellValue('B'.(15*($j-1)+$i+1), $mentor_lastLoginTime);
     }
 }
 
 
 //echo '<pre>';print_r($mentorList);
-
-
-/*
-
-    A                        B
-2 T138288           2011 11 11 11:11:11
-3 T138288           2011 11 11 11:11:11
-4 T138288           2011 11 11 11:11:11
-
-*/
-
-
-
-
-
-
-
 
 
 $objPHPExcel->getActiveSheet()->setTitle('result');
