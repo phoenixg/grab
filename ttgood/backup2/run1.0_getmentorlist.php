@@ -3,14 +3,6 @@
 // 这个网站用的是GB2312
 header("Content-type: text/html; charset=GB2312");
 
-
-/*
-jy_f1 - jy_f199 每页有15条教员记录
-
-2013-01-06
-
-*/
-
 error_reporting(E_ALL);
 ini_set('display_errors', TRUE);
 ini_set('display_startup_errors', TRUE);
@@ -18,7 +10,7 @@ date_default_timezone_set('Asia/Shanghai');
 
 define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
 
-require_once './PHPExcel_1_7_8/Classes/PHPExcel.php';
+require_once '../PHPExcel_1_7_8/Classes/PHPExcel.php';
 
 $objPHPExcel = new PHPExcel();
 
@@ -32,7 +24,7 @@ $objPHPExcel->getProperties()->setCreator("黄峰")
 
 
 
-require ('./simplehtmldom_1_5/simple_html_dom.php');
+require ('../simplehtmldom_1_5/simple_html_dom.php');
 
 define('BASE',   'http://www.ttgood.com/');
 
@@ -40,7 +32,8 @@ set_time_limit(0);
 
 $mentorList  = array();
 for ($j=1; $j < 200; $j++) { 
-    $html = file_get_html(BASE . "jy_f{$j}/");
+    // d1 d2代表性别
+    $html = file_get_html(BASE . "jy_d2_f{$j}/");
     
     for ($i=1; $i <= 15; $i++) { 
         $mentor_lastLoginTime =  trim($html->find("table", 6) //搜索结果列表
@@ -72,58 +65,6 @@ $objPHPExcel->setActiveSheetIndex(0);
 
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objWriter->save(str_replace('.php', '.xlsx', __FILE__));
-
-
-die;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
