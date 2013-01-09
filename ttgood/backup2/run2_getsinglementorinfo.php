@@ -277,6 +277,7 @@ foreach ($pages as $k => $page) {
   $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
   $objWriter->save(str_replace('.php', '.xlsx', "test.xlsx"));
 
+  // 释放内存的感觉真好，可以一次全部抓取下来！
   unset($objPHPExcel);
   unset($objWriter);
 
