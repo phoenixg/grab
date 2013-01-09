@@ -28,22 +28,14 @@ $pages = file('run1.0_getmentorlist_20130107PM1730.txt', FILE_IGNORE_NEW_LINES);
 
 
 
-require_once './PHPExcel_1_7_8/Classes/PHPExcel.php';
-
-$objPHPExcel = new PHPExcel();
-
-$objPHPExcel->getProperties()->setCreator("黄峰")
-                 ->setLastModifiedBy("黄峰")
-                 ->setTitle("ttgood采集结果")
-                 ->setSubject("ttgood采集结果")
-                 ->setDescription("ttgood采集结果")
-                 ->setKeywords("ttgood 家教")
-                 ->setCategory("ttgood采集结果");
+require_once '../PHPExcel_1_7_8/Classes/PHPExcel.php';
 
 
 
 
-require ('./simplehtmldom_1_5/simple_html_dom.php');
+
+
+require ('../simplehtmldom_1_5/simple_html_dom.php');
 
 define('BASE',   'http://www.ttgood.com/');
 
@@ -70,7 +62,52 @@ $mentor_lastLoginTime = trim($html->find("table", 3)
 */
 
 foreach ($pages as $k => $page) {
+  $objPHPExcel = new PHPExcel();
+
+  $objPHPExcel->getProperties()->setCreator("黄峰")
+                   ->setLastModifiedBy("黄峰")
+                   ->setTitle("ttgood采集结果")
+                   ->setSubject("ttgood采集结果")
+                   ->setDescription("ttgood采集结果")
+                   ->setKeywords("ttgood 家教")
+                   ->setCategory("ttgood采集结果");
+
+  
   $html = file_get_html(BASE . $page);
+
+  if(is_null($html->find("table", 3) )) {
+    $mentor_sex = 'null';
+    $mentor_nationality = 'null';
+    $mentor_birthday = 'null';
+    $mentor_school = 'null';
+    $mentor_academic = 'null';
+    $mentor_major = 'null';
+    $mentor_identity = 'null';
+    $mentor_teachable = 'null';
+    $mentor_selfIntro = 'null';
+    $mentor_certificate = 'null';
+    $mentor_teachSchool    = 'null';
+    $mentor_teachSubject   = 'null';
+    $mentor_teachAge       = 'null';
+    $mentor_teachLevel     = 'null';
+
+    $objPHPExcel->setActiveSheetIndex(0)
+                 ->setCellValue('D'.($k+1), $mentor_sex)
+                 ->setCellValue('E'.($k+1), $mentor_nationality)
+                 ->setCellValue('F'.($k+1), $mentor_birthday)
+                 ->setCellValue('G'.($k+1), $mentor_school)
+                 ->setCellValue('H'.($k+1), $mentor_academic)
+                 ->setCellValue('I'.($k+1), $mentor_major)
+                 ->setCellValue('J'.($k+1), $mentor_identity)
+                 ->setCellValue('K'.($k+1), $mentor_teachable)
+                 ->setCellValue('L'.($k+1), $mentor_selfIntro)
+                 ->setCellValue('M'.($k+1), $mentor_certificate)
+                 ->setCellValue('N'.($k+1), $mentor_teachSchool)
+                 ->setCellValue('O'.($k+1), $mentor_teachSubject)
+                 ->setCellValue('P'.($k+1), $mentor_teachAge)
+                 ->setCellValue('Q'.($k+1), $mentor_teachLevel);
+    continue;
+  }
 
   $mentor_sex           = trim($html->find("table", 3)
                                     ->find("tr td", 2)
@@ -231,6 +268,20 @@ foreach ($pages as $k => $page) {
                ->setCellValue('Q'.($k+1), iconv('gb2312', 'utf-8', $mentor_teachLevel));
 
 
+
+
+  $objPHPExcel->getActiveSheet()->setTitle('result');
+
+  $objPHPExcel->setActiveSheetIndex(0);
+
+
+  $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+  $objWriter->save(str_replace('.php', '.xlsx', __FILE__));
+
+  unset($objPHPExcel);
+  unset($objWriter);
+
+
 }
 
 
@@ -240,13 +291,6 @@ foreach ($pages as $k => $page) {
 
 
 
-$objPHPExcel->getActiveSheet()->setTitle('result');
-
-$objPHPExcel->setActiveSheetIndex(0);
-
-
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-$objWriter->save(str_replace('.php', '.xlsx', __FILE__));
 
 
 
