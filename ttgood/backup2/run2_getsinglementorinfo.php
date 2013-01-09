@@ -30,11 +30,6 @@ $pages = file('run1.0_getmentorlist_20130107PM1730.txt', FILE_IGNORE_NEW_LINES);
 
 require_once '../PHPExcel_1_7_8/Classes/PHPExcel.php';
 
-
-
-
-
-
 require ('../simplehtmldom_1_5/simple_html_dom.php');
 
 define('BASE',   'http://www.ttgood.com/');
@@ -62,17 +57,9 @@ $mentor_lastLoginTime = trim($html->find("table", 3)
 */
 
 foreach ($pages as $k => $page) {
-  $objPHPExcel = new PHPExcel();
-
-  $objPHPExcel->getProperties()->setCreator("黄峰")
-                   ->setLastModifiedBy("黄峰")
-                   ->setTitle("ttgood采集结果")
-                   ->setSubject("ttgood采集结果")
-                   ->setDescription("ttgood采集结果")
-                   ->setKeywords("ttgood 家教")
-                   ->setCategory("ttgood采集结果");
-
-  
+  //$objPHPExcel = new PHPExcel();
+  $objPHPExcel = PHPExcel_IOFactory::load("test.xlsx");
+ 
   $html = file_get_html(BASE . $page);
 
   if(is_null($html->find("table", 3) )) {
@@ -106,6 +93,18 @@ foreach ($pages as $k => $page) {
                  ->setCellValue('O'.($k+1), $mentor_teachSubject)
                  ->setCellValue('P'.($k+1), $mentor_teachAge)
                  ->setCellValue('Q'.($k+1), $mentor_teachLevel);
+
+    $objPHPExcel->getActiveSheet()->setTitle('result');
+
+    $objPHPExcel->setActiveSheetIndex(0);
+
+
+    $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+    $objWriter->save(str_replace('.php', '.xlsx', "test.xlsx"));
+
+    unset($objPHPExcel);
+    unset($objWriter);
+                 
     continue;
   }
 
@@ -276,7 +275,7 @@ foreach ($pages as $k => $page) {
 
 
   $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-  $objWriter->save(str_replace('.php', '.xlsx', __FILE__));
+  $objWriter->save(str_replace('.php', '.xlsx', "test.xlsx"));
 
   unset($objPHPExcel);
   unset($objWriter);
