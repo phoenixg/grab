@@ -14,43 +14,35 @@ require_once '../PHPExcel_1_7_8/Classes/PHPExcel.php';
 
 $objPHPExcel = new PHPExcel();
 
-$objPHPExcel->getProperties()->setCreator("黄峰")
-                 ->setLastModifiedBy("黄峰")
-                 ->setTitle("ttgood采集结果")
-                 ->setSubject("ttgood采集结果")
-                 ->setDescription("ttgood采集结果")
-                 ->setKeywords("ttgood 家教")
-                 ->setCategory("ttgood采集结果");
-
-
-
 require ('../simplehtmldom_1_5/simple_html_dom.php');
 
+
+// http://www.ttgood.com/shanghai/teacher_info/index_all.php?taxis=0&total_pages=6518&now_page=1
 define('BASE',   'http://www.ttgood.com/');
 
 set_time_limit(0);
 
 $mentorList  = array();
-for ($j=1; $j < 200; $j++) { 
-    // d1 d2代表性别
-    $html = file_get_html(BASE . "jy_d2_f{$j}/");
+for ($j=1; $j < 3; $j++) {  
+    $html = file_get_html(BASE . "shanghai/teacher_info/index_all.php?taxis=0&total_pages=6518&now_page={$j}/");
     
-    for ($i=1; $i <= 15; $i++) { 
-        $mentor_lastLoginTime =  trim($html->find("table", 6) //搜索结果列表
-                                                                        ->find("tr", $i) //第1行是标题，教员信息从第2行开始，一共1-15有15条教员记录
-                                                                        ->find("td", 6)->plaintext);
+    for ($i=1; $i <= 12; $i++) { 
+        $mentor_lastLoginTime =  trim($html->find("table", 5)
+                                                                            ->find("td", 2)
+                                                                            ->find("tr", $i+1) //第1行是标题，教员信息从第2行开始，一共1-12有12条教员记录
+                                                                            ->find("div", 4)->plaintext);
 
-        $mentor_linkTmp             =  trim($html->find("table", 6) 
-                                                                            ->find("tr", $i)
-                                                                            ->find("td", 7)
-                                                                            ->find(".orange_", 0)
-                                                                            ->href);
+        $mentor_linkTmp             =  trim($html->find("table", 5)
+                                                                            ->find("td", 2)
+                                                                            ->find("tr", $i+1)
+                                                                            ->find("div", 0)->plaintext);
+
         $mentor_link = BASE . trim(str_replace('../', '', $mentor_linkTmp));
         //$mentorList[] = array($mentor_lastLoginTime, $mentor_link);
 
         $objPHPExcel->setActiveSheetIndex(0)
-                                     ->setCellValue('A'.(15*($j-1)+$i+1), $mentor_linkTmp)
-                                     ->setCellValue('B'.(15*($j-1)+$i+1), $mentor_lastLoginTime);
+                                     ->setCellValue('A'.(12*($j-1)+$i+1), $mentor_linkTmp)
+                                     ->setCellValue('B'.(12*($j-1)+$i+1), $mentor_lastLoginTime);
     }
 }
 
