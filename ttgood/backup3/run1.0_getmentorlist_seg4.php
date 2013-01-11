@@ -21,9 +21,9 @@ define('BASE',   'http://www.ttgood.com/');
 set_time_limit(0);
 
 $mentorList  = array();
-for ($j=3500; $j < 4000; $j++) {  
+for ($j=6517; $j < 6520; $j++) {  
 
-   $objPHPExcel = PHPExcel_IOFactory::load("01_seg5.xlsx");
+   $objPHPExcel = PHPExcel_IOFactory::load("01_seg4.xlsx");
 
     $html = file_get_html(BASE . "shanghai/teacher_info/index_all.php?taxis=0&total_pages=6518&now_page={$j}/");
     
@@ -57,7 +57,7 @@ for ($j=3500; $j < 4000; $j++) {
 
 
     $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-    $objWriter->save(str_replace('.php', '.xlsx', "01_seg5.xlsx"));
+    $objWriter->save(str_replace('.php', '.xlsx', "01_seg4.xlsx"));
 
 
       // 释放内存的感觉真好，可以一次全部抓取下来！
