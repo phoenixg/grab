@@ -21,7 +21,7 @@ define('BASE',   'http://www.ttgood.com/');
 set_time_limit(0);
 
 $mentorList  = array();
-for ($j=1500; $j < 2220; $j++) {  
+for ($j=2600; $j < 3000; $j++) {  
 
    $objPHPExcel = PHPExcel_IOFactory::load("01_seg2.xlsx");
 
