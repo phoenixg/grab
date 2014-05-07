@@ -13,6 +13,8 @@ $userId = '1000';
 $token = 'NYMVRFHLJRGEGSODFJEPQK';
 
 for($userId = 1000; $userId < 1003; $userId ++) {
+    echo time() . '.' . $last_ajax_call;continue;
+
     $last_ajax_call = isset($_GET['timestamp']) ? (int)$_GET['timestamp'] : null;
 
     clearstatcache();
