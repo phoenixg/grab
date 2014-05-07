@@ -20,6 +20,7 @@ set_time_limit(0);
 // http://kechenggezi.com/users/1000/details.json?token=NYMVRFHLJRGEGSODFJEPQK
 $url = 'http://kechenggezi.com/users/';
 $urlAppend = '/details.json?token=';
+$userId = '1000';
 
 // 从Fiddler那里，手机访问课程格子，抓手机包来获得token
 $token = 'NYMVRFHLJRGEGSODFJEPQK';
@@ -36,55 +37,51 @@ while (true) {
     clearstatcache();
 
     $result = array();
-    for ($userId = 1000; $userId < 1004; $userId ++) { 
-        $urlFull = $url . $userId . $urlAppend . $token;
+    $urlFull = $url . $userId . $urlAppend . $token;
 
-        $handle = curl_init($urlFull);
-        curl_setopt($handle,  CURLOPT_RETURNTRANSFER, TRUE);
-        $response = curl_exec($handle);
-        $httpCode = curl_getinfo($handle, CURLINFO_HTTP_CODE);
-        if($httpCode == 404) {
-            continue;
-        }
+    // $handle = curl_init($urlFull);
+    // curl_setopt($handle,  CURLOPT_RETURNTRANSFER, TRUE);
+    // $response = curl_exec($handle);
+    // $httpCode = curl_getinfo($handle, CURLINFO_HTTP_CODE);
+    // if($httpCode == 404) {
+    //     continue;
+    // }
 
-        curl_close($handle);
+    // curl_close($handle);
 
-        $json = file_get_contents($urlFull);
-        $obj = json_decode($json);
-        $objUser = $obj->user;
-        $result[] = $objUser->tiny_avatar_url;
+    $json = file_get_contents($urlFull);
+    $obj = json_decode($json);
+    $objUser = $obj->user;
+    // $result[] = $objUser->tiny_avatar_url;
 
 
-        // get timestamp of when file has been changed the last time
-        // $last_change_in_data_file = filemtime($data_source_file);
+    // get timestamp of when file has been changed the last time
+    // $last_change_in_data_file = filemtime($data_source_file);
 
-        // if no timestamp delivered via ajax or data.txt has been changed SINCE last ajax timestamp
-        // if ($last_ajax_call == null || $last_change_in_data_file > $last_ajax_call) {
-        if ($last_ajax_call == null || isset($objUser)) {
-            // get content of data.txt
-            // $data = file_get_contents($data_source_file);
+    // if no timestamp delivered via ajax or data.txt has been changed SINCE last ajax timestamp
+    // if ($last_ajax_call == null || $last_change_in_data_file > $last_ajax_call) {
+    if ($last_ajax_call == null || isset($objUser)) {
+        // get content of data.txt
+        // $data = file_get_contents($data_source_file);
 
-            // put data.txt's content and timestamp of last data.txt change into array
-            $result = array(
-                'data_from_file' => 'a',
-                'timestamp' => '222'
-            );
+        // put data.txt's content and timestamp of last data.txt change into array
+        $result = array(
+            'data_from_file' => 'a',
+            'timestamp' => '222'
+        );
 
-            // encode to JSON, render the result (for AJAX)
-            $json = json_encode($result);
-            echo $json;
+        // encode to JSON, render the result (for AJAX)
+        $json = json_encode($result);
+        echo $json;
 
-            // leave this loop step
-            break;
+        // leave this loop step
+        break;
 
-        } else {
-            // wait for 1 sec (not very sexy as this blocks the PHP/Apache process, but that's how it goes)
-            sleep( 1 );
-            continue;
-        }
-
+    } else {
+        // wait for 1 sec (not very sexy as this blocks the PHP/Apache process, but that's how it goes)
+        sleep( 1 );
+        continue;
     }
-
     
 
 
