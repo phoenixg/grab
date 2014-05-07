@@ -31,6 +31,7 @@ while( true ) {
             echo $json;
             break;
         } else {
+            sleep(1);
             curl_close($handle);
 
             $json = file_get_contents($urlFull);
