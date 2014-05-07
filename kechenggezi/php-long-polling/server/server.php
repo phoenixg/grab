@@ -21,34 +21,42 @@ while( true ) {
         $urlFull = $url . $userId . $urlAppend . $token;
 
         $handle = curl_init($urlFull);
-        curl_setopt($handle,  CURLOPT_RETURNTRANSFER, TRUE);
+        curl_setopt($handle, CURLOPT_RETURNTRANSFER, TRUE);
+        curl_setopt($handle, CURLOPT_CONNECTTIMEOUT, 120);
+        curl_setopt($handle, CURLOPT_TIMEOUT, 120);
         $response = curl_exec($handle);
         $httpCode = curl_getinfo($handle, CURLINFO_HTTP_CODE);
         
+
+        curl_close($handle);
+
         if($httpCode == 404) {
-            curl_close($handle);
+            
             $json = json_encode(array('data_from_file' => 'c', 'userId' => $userId));
             echo $json;
-            sleep(1);
             break;
         } else {
-            sleep(1);
-            curl_close($handle);
-
+        
             $json = file_get_contents($urlFull);
             $obj = json_decode($json);
-            $objUser = $obj->user;
-            $turl = $objUser->tiny_avatar_url;
+            if(is_object($obj->user)){
+                 $objUser = $obj->user;
+                $turl = $objUser->tiny_avatar_url;
 
-            $result = array(
-                'data_from_file' => $turl,
-                'userId' => $userId
-            );
-            
-            $json = json_encode($result);
-            echo $json;
+                $result = array(
+                    'data_from_file' => $turl,
+                    'userId' => $userId
+                );
+                
+                $json = json_encode($result);
+                echo $json;
 
-            break;  
+                break;            
+            } else {
+                $json = json_encode(array('data_from_file' => 'd', 'userId' => $userId));
+                echo $json;
+                break;
+            }
         }
     }
 
