@@ -60,7 +60,7 @@ while (true) {
 
     // if no timestamp delivered via ajax or data.txt has been changed SINCE last ajax timestamp
     // if ($last_ajax_call == null || $last_change_in_data_file > $last_ajax_call) {
-    if ($last_ajax_call == null || isset($objUser)) {
+    if ($last_ajax_call == null || (isset($objUser) && (time() > $last_ajax_call))) {
         // get content of data.txt
         // $data = file_get_contents($data_source_file);
 
