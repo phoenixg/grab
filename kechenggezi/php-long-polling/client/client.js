@@ -11,7 +11,9 @@ function getContent(userId)
             success: function(data){
                 var obj = jQuery.parseJSON(data);
                 $('#response').html(obj.data_from_file);
-                getContent(obj.userId);
+
+                var newUserId = obj.userId + 1;
+                getContent(newUserId);
             }
         }
     );

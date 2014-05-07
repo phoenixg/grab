@@ -12,7 +12,7 @@ $urlAppend = '/details.json?token=';
 $token = 'NYMVRFHLJRGEGSODFJEPQK';
 
 while( true ) {
-    $userId = isset($_GET['userId']) ? (int) ($_GET['userId'] + 1000) : null;
+    $userId = isset($_GET['userId']) ? (int) ($_GET['userId']) : null;
 
     clearstatcache();
 
