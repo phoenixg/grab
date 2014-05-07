@@ -20,6 +20,19 @@ while( true ) {
         $result = array();
         $urlFull = $url . $userId . $urlAppend . $token;
 
+        $handle = curl_init($urlFull);
+        curl_setopt($handle,  CURLOPT_RETURNTRANSFER, TRUE);
+        $response = curl_exec($handle);
+        $httpCode = curl_getinfo($handle, CURLINFO_HTTP_CODE);
+        if($httpCode == 404) {
+            curl_close($handle);
+            $json = json_encode(array('data_from_file' => 'c', 'userId' => '0'));
+            echo $json;
+            break;
+        }
+
+        curl_close($handle);
+
         $json = file_get_contents($urlFull);
         $obj = json_decode($json);
         $objUser = $obj->user;
@@ -49,12 +62,3 @@ while( true ) {
 
 
 
-// $handle = curl_init($urlFull);
-// curl_setopt($handle,  CURLOPT_RETURNTRANSFER, TRUE);
-// $response = curl_exec($handle);
-// $httpCode = curl_getinfo($handle, CURLINFO_HTTP_CODE);
-// if($httpCode == 404) {
-//     continue;
-// }
-
-// curl_close($handle);
