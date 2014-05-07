@@ -27,21 +27,15 @@ while( true ) {
         //$objUser->tiny_avatar_url;
     }
 
-    if ($userId == null) {
-        $result = array(
-            'data_from_file' => 'a',
-            'userId' => $userId
-        );
+    $result = array(
+        'data_from_file' => 'a',
+        'userId' => $userId
+    );
 
-        $json = json_encode($result);
-        echo $json;
+    $json = json_encode($result);
+    echo $json;
 
-        break;
-    } else {
-        sleep( 1 );
-        continue;
-    }
-
+    break;
 }
 
 
