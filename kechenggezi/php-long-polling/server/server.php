@@ -12,43 +12,46 @@ $userId = '1000';
 // 从Fiddler那里，手机访问课程格子，抓手机包来获得token
 $token = 'NYMVRFHLJRGEGSODFJEPQK';
 
-for($userId = 1000; $userId < 1003; $userId ++) {
-    $last_ajax_call = isset($_GET['timestamp']) ? (int)$_GET['timestamp'] : null;
+while( true ) {
+    $userId = isset($_GET['userId']) ? (int)$_GET['userId'] : null;
 
     clearstatcache();
 
-    $result = array();
-    $urlFull = $url . $userId . $urlAppend . $token;
+    if ($userId !== null) {
+        $result = array();
+        $urlFull = $url . $userId . $urlAppend . $token;
 
-    // $handle = curl_init($urlFull);
-    // curl_setopt($handle,  CURLOPT_RETURNTRANSFER, TRUE);
-    // $response = curl_exec($handle);
-    // $httpCode = curl_getinfo($handle, CURLINFO_HTTP_CODE);
-    // if($httpCode == 404) {
-    //     continue;
-    // }
+        $json = file_get_contents($urlFull);
+        $obj = json_decode($json);
+        $objUser = $obj->user;
+        //$objUser->tiny_avatar_url;
+    }
 
-    // curl_close($handle);
-
-    $json = file_get_contents($urlFull);
-    $obj = json_decode($json);
-    $objUser = $obj->user;
-
-
-    if ($last_ajax_call == null || (isset($objUser) && (time() > $last_ajax_call))) {
+    if ($userId == null) {
         $result = array(
-            'data_from_file' => $objUser->tiny_avatar_url,
-            'timestamp' => time()
+            'data_from_file' => 'a',
+            'userId' => $userId
         );
 
         $json = json_encode($result);
         echo $json;
 
-        continue;
-
+        break;
     } else {
         sleep( 1 );
         continue;
     }
 
 }
+
+
+
+// $handle = curl_init($urlFull);
+// curl_setopt($handle,  CURLOPT_RETURNTRANSFER, TRUE);
+// $response = curl_exec($handle);
+// $httpCode = curl_getinfo($handle, CURLINFO_HTTP_CODE);
+// if($httpCode == 404) {
+//     continue;
+// }
+
+// curl_close($handle);
