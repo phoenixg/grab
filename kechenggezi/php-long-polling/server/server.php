@@ -67,7 +67,7 @@ while (true) {
         // put data.txt's content and timestamp of last data.txt change into array
         $result = array(
             'data_from_file' => 'a',
-            'timestamp' => '222'
+            'timestamp' => time()
         );
 
         // encode to JSON, render the result (for AJAX)
