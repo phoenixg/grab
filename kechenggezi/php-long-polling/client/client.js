@@ -22,6 +22,7 @@ function getContent(userId)
                             '<td>' + obj.school + '</td>' +
                             '<td>' + obj.last_login_time + '</td>' +
                             '<td>' + obj.birthday + '</td>' +
+                            '<td><img src="' + obj.origin_avatar_url + '" />' + '</td>' +
                             '</tr>';
 
                 $('#response').append(html);

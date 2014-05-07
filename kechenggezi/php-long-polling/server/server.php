@@ -42,6 +42,7 @@ while( true ) {
                                         'school' => '',
                                         'last_login_time' => '',
                                         'birthday' => '',
+                                        'origin_avatar_url' => ''
                                         ));
             echo $json;
             curl_close($handle);
@@ -63,6 +64,7 @@ while( true ) {
                                             'school' => '',
                                             'last_login_time' => '',
                                             'birthday' => '',
+                                            'origin_avatar_url' => ''
                                             ));
                 echo $json;
                 curl_close($handle);
@@ -82,7 +84,7 @@ while( true ) {
             $birthday = $objUser->birthday;
 
             $result = array(
-                'report' => $origin_avatar_url,
+                'report' => '',
                 'userId' => $userId,
                 'uid' => $uid,
                 'geziId' => $gezi_id,
@@ -92,7 +94,8 @@ while( true ) {
                 'sex' => $sex,
                 'school' => $school,
                 'last_login_time' => $last_login_time,
-                'birthday' => $birthday
+                'birthday' => $birthday,
+                'origin_avatar_url' => $origin_avatar_url,
             );
             
             $json = json_encode($result);
