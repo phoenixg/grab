@@ -39,8 +39,12 @@ while( true ) {
         
             $json = file_get_contents($urlFull);
             $obj = json_decode($json);
+            var_dump($obj->user);
+            var_dump(is_object($obj->user));die;
+
+
             if(is_object($obj->user)){
-                 $objUser = $obj->user;
+                $objUser = $obj->user;
                 $turl = $objUser->tiny_avatar_url;
 
                 $result = array(
