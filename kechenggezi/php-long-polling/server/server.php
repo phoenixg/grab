@@ -32,7 +32,7 @@ while( true ) {
 
         if($httpCode == 404 || $userId < 25) {
             $json = json_encode(array('report' => '遇到404啦亲', 
-                                        'userId' => $userId),
+                                        'userId' => $userId,
                                         'uid' => '',
                                         'geziId' => '',
                                         'major' => '',
@@ -42,7 +42,7 @@ while( true ) {
                                         'school' => '',
                                         'last_login_time' => '',
                                         'birthday' => '',
-                                        );
+                                        ));
             echo $json;
             curl_close($handle);
             break;
