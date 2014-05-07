@@ -12,6 +12,9 @@ $urlFull = $url . $userId . $urlAppend . $token;
 
 $json = file_get_contents($urlFull);
 $obj = json_decode($json);
+
+var_dump($obj);die;
+
 echo $obj->tiny_avatar_url;
 
 /*
@@ -27,5 +30,5 @@ foreach($arr as $people){
 	// print out as a tr line
 }
 
-
+*/
 
