@@ -37,7 +37,7 @@ for($userId = 1000; $userId < 1003; $userId ++) {
 
     if ($last_ajax_call == null || (isset($objUser) && (time() > $last_ajax_call))) {
         $result = array(
-            'data_from_file' => $last_ajax_call . '-' . time(),  // $objUser->tiny_avatar_url,
+            'data_from_file' => $objUser->tiny_avatar_url,
             'timestamp' => time()
         );
 
