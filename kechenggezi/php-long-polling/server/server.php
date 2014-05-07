@@ -29,17 +29,13 @@ while( true ) {
         curl_setopt($handle, CURLOPT_TIMEOUT, 120);
         $response = curl_exec($handle);
         $httpCode = curl_getinfo($handle, CURLINFO_HTTP_CODE);
-        
-
-        curl_close($handle);
 
         if($httpCode == 404) {
-            
             $json = json_encode(array('data_from_file' => 'c', 'userId' => $userId));
             echo $json;
+            curl_close($handle);
             break;
         } else {
-        
             $json = file_get_contents($urlFull);
             $obj = json_decode($json);
             $objUser = $obj->user;
@@ -52,6 +48,7 @@ while( true ) {
             
             $json = json_encode($result);
             echo $json;
+            curl_close($handle);
 
             break;            
    
