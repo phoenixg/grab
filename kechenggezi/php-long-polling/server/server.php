@@ -13,8 +13,6 @@ $urlAppend = '/details.json?token=';
 $token = 'NYMVRFHLJRGEGSODFJEPQK';
 
 while( true ) {
-    sleep(5);
-
     $userId = isset($_GET['userId']) ? (int) ($_GET['userId']) : null;
     if($userId == 1)
         $userId += 25;
