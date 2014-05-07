@@ -44,7 +44,7 @@ for($userId = 1000; $userId < 1003; $userId ++) {
         $json = json_encode($result);
         echo $json;
 
-        break;
+        continue;
 
     } else {
         sleep( 1 );
