@@ -13,6 +13,8 @@ $urlAppend = '/details.json?token=';
 $token = 'NYMVRFHLJRGEGSODFJEPQK';
 
 while( true ) {
+    sleep(5);
+
     $userId = isset($_GET['userId']) ? (int) ($_GET['userId']) : null;
 
     clearstatcache();
@@ -40,31 +42,19 @@ while( true ) {
         
             $json = file_get_contents($urlFull);
             $obj = json_decode($json);
-            var_dump($urlFull);
-            var_dump($json);
-            var_dump($obj);
-            var_dump($obj->user);
-            var_dump(is_object($obj->user));die;
+            $objUser = $obj->user;
+            $aaa = $objUser->tiny_avatar_url;
 
+            $result = array(
+                'data_from_file' => $aaa,
+                'userId' => $userId
+            );
+            
+            $json = json_encode($result);
+            echo $json;
 
-            if(is_object($obj->user)){
-                $objUser = $obj->user;
-                $turl = $objUser->tiny_avatar_url;
-
-                $result = array(
-                    'data_from_file' => $turl,
-                    'userId' => $userId
-                );
-                
-                $json = json_encode($result);
-                echo $json;
-
-                break;            
-            } else {
-                $json = json_encode(array('data_from_file' => 'd', 'userId' => $userId));
-                echo $json;
-                break;
-            }
+            break;            
+   
         }
     }
 
