@@ -33,6 +33,8 @@ while( true ) {
         } else {
             curl_close($handle);
 
+echo $urlFull;die;
+
             $json = file_get_contents($urlFull);
             $obj = json_decode($json);
             $objUser = $obj->user;
