@@ -1,6 +1,12 @@
 <?php 
 
+// 尝试用长轮询做
+
 set_time_limit(100);
+
+// user id 最大值 7261450 （截至 20140507）
+// http://kechenggezi.com/users/7261450/details.json?token=NYMVRFHLJRGEGSODFJEPQK
+// http://kechenggezi.com/users/1000/details.json?token=NYMVRFHLJRGEGSODFJEPQK
 
 
 $url = 'http://kechenggezi.com/users/';
