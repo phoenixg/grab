@@ -1,6 +1,6 @@
 <?php
 header('Content-Type: text/html; charset=utf-8');
-
+$userAgentsArr = include 'user-agents.php';
 set_time_limit(0);
 
 // user id 最大值 7261450 ； 最小值 27 （截至 20140507）
@@ -24,6 +24,17 @@ while( true ) {
         $urlFull = $url . $userId . $urlAppend . $token;
 
         $handle = curl_init($urlFull);
+        
+        $headers[]  = array_rand($userAgentsArr);
+        $headers[]  = "Accept:text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
+        $headers[]  = "Accept-Language:en-us,en;q=0.5";
+        $headers[]  = "Accept-Encoding:gzip,deflate";
+        $headers[]  = "Accept-Charset:ISO-8859-1,utf-8;q=0.7,*;q=0.7";
+        $headers[]  = "Keep-Alive:115";
+        $headers[]  = "Connection:keep-alive";
+        $headers[]  = "Cache-Control:max-age=0";
+
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($handle, CURLOPT_RETURNTRANSFER, TRUE);
         curl_setopt($handle, CURLOPT_CONNECTTIMEOUT, 120);
         curl_setopt($handle, CURLOPT_TIMEOUT, 120);
