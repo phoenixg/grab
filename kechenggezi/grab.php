@@ -12,10 +12,10 @@ $urlFull = $url . $userId . $urlAppend . $token;
 
 $json = file_get_contents($urlFull);
 $obj = json_decode($json);
+$objUser = $obj->user;
 
-var_dump($obj);die;
+echo $objUser->tiny_avatar_url;
 
-echo $obj->tiny_avatar_url;
 
 /*
 
