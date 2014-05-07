@@ -21,6 +21,8 @@ while( true ) {
         $urlFull = $url . $userId . $urlAppend . $token;
 
         $json = file_get_contents($urlFull);
+        echo $json;
+        break;
         $obj = json_decode($json);
         $objUser = $obj->user;
         //$objUser->tiny_avatar_url;
