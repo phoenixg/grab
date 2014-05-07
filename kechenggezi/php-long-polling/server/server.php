@@ -29,6 +29,7 @@ while( true ) {
             curl_close($handle);
             $json = json_encode(array('data_from_file' => 'c', 'userId' => $userId));
             echo $json;
+            sleep(1);
             break;
         } else {
             sleep(1);
