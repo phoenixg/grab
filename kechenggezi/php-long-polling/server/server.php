@@ -24,29 +24,30 @@ while( true ) {
         curl_setopt($handle,  CURLOPT_RETURNTRANSFER, TRUE);
         $response = curl_exec($handle);
         $httpCode = curl_getinfo($handle, CURLINFO_HTTP_CODE);
+        
         if($httpCode == 404) {
             curl_close($handle);
             $json = json_encode(array('data_from_file' => 'c', 'userId' => '0'));
             echo $json;
             break;
+        } else {
+            curl_close($handle);
+
+            $json = file_get_contents($urlFull);
+            $obj = json_decode($json);
+            $objUser = $obj->user;
+            // $objUser->tiny_avatar_url;
+
+            $result = array(
+                'data_from_file' => 'b',
+                'userId' => $userId
+            );
+            
+            $json = json_encode($result);
+            echo $json;
+
+            break;  
         }
-
-        curl_close($handle);
-
-        $json = file_get_contents($urlFull);
-        $obj = json_decode($json);
-        $objUser = $obj->user;
-        // $objUser->tiny_avatar_url;
-
-        $result = array(
-            'data_from_file' => 'b',
-            'userId' => $userId
-        );
-        
-        $json = json_encode($result);
-        echo $json;
-
-        break;
     }
 
     $result = array(
