@@ -10,7 +10,21 @@ function getContent(userId)
             data: queryString,
             success: function(data){
                 var obj = jQuery.parseJSON(data);
-                $('#response').html(obj.data_from_file);
+                var html = '<tr>' + 
+                            '<td>' + obj.report + '</td>' +
+                            '<td>' + obj.userId + '</td>' +
+                            '<td>' + obj.uid + '</td>' +
+                            '<td>' + obj.geziId + '</td>' +
+                            '<td>' + obj.major + '</td>' +
+                            '<td>' + obj.department + '</td>' +
+                            '<td>' + obj.grade + '</td>' +
+                            '<td>' + obj.sex + '</td>' +
+                            '<td>' + obj.school + '</td>' +
+                            '<td>' + obj.last_login_time + '</td>' +
+                            '<td>' + obj.birthday + '</td>' +
+                            '</tr>';
+
+                $('#response').append(html);
 
                 var newUserId = obj.userId + 1;
                 getContent(newUserId);
@@ -19,7 +33,6 @@ function getContent(userId)
     );
 }
 
-// initialize jQuery
 $(function() {
     getContent();
 });

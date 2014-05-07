@@ -31,7 +31,18 @@ while( true ) {
         $httpCode = curl_getinfo($handle, CURLINFO_HTTP_CODE);
 
         if($httpCode == 404 || $userId < 25) {
-            $json = json_encode(array('data_from_file' => '遇到404啦亲', 'userId' => $userId));
+            $json = json_encode(array('report' => '遇到404啦亲', 
+                                        'userId' => $userId),
+                                        'uid' => '',
+                                        'geziId' => '',
+                                        'major' => '',
+                                        'department' => '',
+                                        'grade' => '',
+                                        'sex' => '',
+                                        'school' => '',
+                                        'last_login_time' => '',
+                                        'birthday' => '',
+                                        );
             echo $json;
             curl_close($handle);
             break;
@@ -41,18 +52,47 @@ while( true ) {
 
             // 可能是请求被拒绝！请求频率过高！
             if(isset($obj->success) && $obj->success == false){
-                $json = json_encode(array('data_from_file' => '请求频率过高亲', 'userId' => $userId - 1));
+                $json = json_encode(array('report' => '请求频率过高亲', 
+                                            'userId' => $userId - 1,
+                                            'uid' => '',
+                                            'geziId' => '',
+                                            'major' => '',
+                                            'department' => '',
+                                            'grade' => '',
+                                            'sex' => '',
+                                            'school' => '',
+                                            'last_login_time' => '',
+                                            'birthday' => '',
+                                            ));
                 echo $json;
                 curl_close($handle);
                 break;
             } 
 
             $objUser = $obj->user;
-            $aaa = $objUser->tiny_avatar_url;
+            $origin_avatar_url = $objUser->origin_avatar_url;
+            $uid = $objUser->id;
+            $gezi_id = $objUser->gezi_id;
+            $major = $objUser->major;
+            $department = $objUser->department;
+            $grade = $objUser->grade;
+            $sex = $objUser->sex;
+            $school = $objUser->school;
+            $last_login_time = $objUser->last_login_time;
+            $birthday = $objUser->birthday;
 
             $result = array(
-                'data_from_file' => $aaa,
-                'userId' => $userId
+                'report' => $origin_avatar_url,
+                'userId' => $userId,
+                'uid' => $uid,
+                'geziId' => $geziId;
+                'major' => $major,
+                'department' => $department,
+                'grade' => $grade,
+                'sex' => $sex,
+                'school' => $school,
+                'last_login_time' => $last_login_time,
+                'birthday' => $birthday
             );
             
             $json = json_encode($result);
@@ -65,7 +105,7 @@ while( true ) {
     }
 
     $result = array(
-        'data_from_file' => 'a',
+        'report' => '初始',
         'userId' => $userId
     );
 
