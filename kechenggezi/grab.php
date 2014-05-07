@@ -10,7 +10,7 @@ $urlAppend = '/details.json?token=';
 $token = 'NYMVRFHLJRGEGSODFJEPQK';
 
 $result = array();
-for ($userId = 1; $userId < 100; $userId ++) { 
+for ($userId = 1000; $userId < 1004; $userId ++) { 
     $urlFull = $url . $userId . $urlAppend . $token;
 
     $handle = curl_init($urlFull);
