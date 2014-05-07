@@ -27,21 +27,19 @@ while( true ) {
         
         if($httpCode == 404) {
             curl_close($handle);
-            $json = json_encode(array('data_from_file' => 'c', 'userId' => '0'));
+            $json = json_encode(array('data_from_file' => 'c', 'userId' => $userId));
             echo $json;
             break;
         } else {
             curl_close($handle);
 
-echo $urlFull;die;
-
             $json = file_get_contents($urlFull);
             $obj = json_decode($json);
             $objUser = $obj->user;
-            // $objUser->tiny_avatar_url;
+            $turl = $objUser->tiny_avatar_url;
 
             $result = array(
-                'data_from_file' => 'b',
+                'data_from_file' => $turl,
                 'userId' => $userId
             );
             
