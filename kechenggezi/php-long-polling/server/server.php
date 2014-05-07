@@ -16,6 +16,8 @@ while( true ) {
     sleep(5);
 
     $userId = isset($_GET['userId']) ? (int) ($_GET['userId']) : null;
+    if($userId == 1)
+        $userId += 25;
 
     clearstatcache();
 
@@ -41,6 +43,7 @@ while( true ) {
 
             // 可能是请求被拒绝！请求频率过高！
             if(isset($obj->success) && $obj->success == false){
+                $userId -= $userId; // retry next ajax request
                 $json = json_encode(array('data_from_file' => '请求频率过高亲', 'userId' => $userId));
                 echo $json;
                 curl_close($handle);
