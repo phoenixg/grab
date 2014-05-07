@@ -39,6 +39,9 @@ while( true ) {
         
             $json = file_get_contents($urlFull);
             $obj = json_decode($json);
+            var_dump($urlFull);
+            var_dump($json);
+            var_dump($obj);
             var_dump($obj->user);
             var_dump(is_object($obj->user));die;
 
