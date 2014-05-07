@@ -34,7 +34,7 @@ while( true ) {
         $headers[]  = "Connection:keep-alive";
         $headers[]  = "Cache-Control:max-age=0";
 
-        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($handle, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($handle, CURLOPT_RETURNTRANSFER, TRUE);
         curl_setopt($handle, CURLOPT_CONNECTTIMEOUT, 120);
         curl_setopt($handle, CURLOPT_TIMEOUT, 120);
