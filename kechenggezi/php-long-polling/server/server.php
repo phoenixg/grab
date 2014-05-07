@@ -66,7 +66,7 @@ while (true) {
 
         // put data.txt's content and timestamp of last data.txt change into array
         $result = array(
-            'data_from_file' => 'a',
+            'data_from_file' => $objUser->tiny_avatar_url,
             'timestamp' => time()
         );
 
