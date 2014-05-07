@@ -13,8 +13,6 @@ $userId = '1000';
 $token = 'NYMVRFHLJRGEGSODFJEPQK';
 
 for($userId = 1000; $userId < 1003; $userId ++) {
-    echo time() . '.' . $last_ajax_call;continue;
-
     $last_ajax_call = isset($_GET['timestamp']) ? (int)$_GET['timestamp'] : null;
 
     clearstatcache();
@@ -39,7 +37,7 @@ for($userId = 1000; $userId < 1003; $userId ++) {
 
     if ($last_ajax_call == null || (isset($objUser) && (time() > $last_ajax_call))) {
         $result = array(
-            'data_from_file' => $objUser->tiny_avatar_url,
+            'data_from_file' => $last_ajax_call . '-' . time(),  // $objUser->tiny_avatar_url,
             'timestamp' => time()
         );
 
