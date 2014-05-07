@@ -25,7 +25,17 @@ while( true ) {
         break;
         $obj = json_decode($json);
         $objUser = $obj->user;
-        //$objUser->tiny_avatar_url;
+        // $objUser->tiny_avatar_url;
+
+        $result = array(
+            'data_from_file' => 'b',
+            'userId' => $userId
+        );
+        
+        $json = json_encode($result);
+        echo $json;
+
+        break;
     }
 
     $result = array(
