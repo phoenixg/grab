@@ -30,7 +30,7 @@ while( true ) {
         $response = curl_exec($handle);
         $httpCode = curl_getinfo($handle, CURLINFO_HTTP_CODE);
 
-        if($httpCode == 404) {
+        if($httpCode == 404 || $userId == 1) {
             $json = json_encode(array('data_from_file' => 'c', 'userId' => $userId));
             echo $json;
             curl_close($handle);
