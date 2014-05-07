@@ -85,7 +85,7 @@ while( true ) {
                 'report' => $origin_avatar_url,
                 'userId' => $userId,
                 'uid' => $uid,
-                'geziId' => $geziId;
+                'geziId' => $geziId,
                 'major' => $major,
                 'department' => $department,
                 'grade' => $grade,
