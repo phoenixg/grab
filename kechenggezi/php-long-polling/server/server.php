@@ -41,8 +41,7 @@ while( true ) {
 
             // 可能是请求被拒绝！请求频率过高！
             if(isset($obj->success) && $obj->success == false){
-                $userId -= $userId; // retry next ajax request
-                $json = json_encode(array('data_from_file' => '请求频率过高亲', 'userId' => $userId));
+                $json = json_encode(array('data_from_file' => '请求频率过高亲', 'userId' => $userId - 1));
                 echo $json;
                 curl_close($handle);
                 break;
