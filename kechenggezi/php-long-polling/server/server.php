@@ -7,7 +7,6 @@ set_time_limit(0);
 // http://kechenggezi.com/users/1000/details.json?token=NYMVRFHLJRGEGSODFJEPQK
 $url = 'http://kechenggezi.com/users/';
 $urlAppend = '/details.json?token=';
-$userId = '1000';
 
 // 从Fiddler那里，手机访问课程格子，抓手机包来获得token
 $token = 'NYMVRFHLJRGEGSODFJEPQK';
